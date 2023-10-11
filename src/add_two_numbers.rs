@@ -97,7 +97,29 @@ mod add_two_numbers_test {
         let result = Solution::add_two_numbers(l1, l2);
         // Assert
         assert_eq!(result, answer);
-        
     }
 
+    #[test]
+    fn test_b() {
+        // Arrange
+        let l1 = generate(vec![0]);
+        let l2 = generate(vec![0]);
+        let answer = generate(vec![0]);
+        // Act
+        let result = Solution::add_two_numbers(l1, l2);
+        // Assert
+        assert_eq!(result, answer);
+    }
+
+    #[test]
+    fn test_c() {
+        // Arrange
+        let l1 = generate(vec![9, 9, 9, 9, 9, 9, 9]);
+        let l2 = generate(vec![9, 9, 9, 9]);
+        let answer = generate(vec![8,9,9,9,0,0,0,1]);
+        // Act
+        let result = Solution::add_two_numbers(l1, l2);
+        // Assert
+        assert_eq!(result, answer);
+    }
 }
