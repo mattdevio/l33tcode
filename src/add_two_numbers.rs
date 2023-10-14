@@ -9,24 +9,23 @@
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
-    pub next: Option<Box<ListNode>>
+    pub next: Option<Box<ListNode>>,
 }
 
 impl ListNode {
     #[inline]
-    fn new (val: i32) -> Self {
-        Self {
-            next: None,
-            val,
-        }
+    fn new(val: i32) -> Self {
+        Self { next: None, val }
     }
-
 }
 
 pub struct Solution;
 
 impl Solution {
-    pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    pub fn add_two_numbers(
+        l1: Option<Box<ListNode>>,
+        l2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
         let mut l1_ptr = &l1;
         let mut l2_ptr = &l2;
         let mut carry = 0;
@@ -37,20 +36,16 @@ impl Solution {
                 Some(n) => {
                     l1_ptr = &n.next;
                     n.val
-                },
-                None => {
-                    0
-                },
+                }
+                None => 0,
             };
 
             let l2_value = match l2_ptr {
                 Some(n) => {
                     l2_ptr = &n.next;
                     n.val
-                },
-                None => {
-                    0
                 }
+                None => 0,
             };
             let sum = l1_value + l2_value + carry;
             let modulo = sum % 10;
@@ -63,8 +58,7 @@ impl Solution {
                 tail.as_mut().unwrap().next = Some(Box::new(ListNode::new(modulo)));
                 tail = tail.unwrap().next.as_mut();
             }
-            
-        };
+        }
         head
     }
 }
@@ -116,7 +110,7 @@ mod add_two_numbers_test {
         // Arrange
         let l1 = generate(vec![9, 9, 9, 9, 9, 9, 9]);
         let l2 = generate(vec![9, 9, 9, 9]);
-        let answer = generate(vec![8,9,9,9,0,0,0,1]);
+        let answer = generate(vec![8, 9, 9, 9, 0, 0, 0, 1]);
         // Act
         let result = Solution::add_two_numbers(l1, l2);
         // Assert
