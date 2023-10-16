@@ -12,25 +12,26 @@ pub mod solution {
         } else {
             (nums1, nums2)
         };
-        println!("SMALL -> {:?}", small);
-        println!("BIG   -> {:?}", big);
 
+
+        let sl = small.len();
+        let bl = big.len();
 
         let mut lo = 0;
-        let mut hi = small.len();
-        let combined_len = small.len() + big.len();
+        let mut hi = sl;
+        let combined_len = sl + bl;
 
         while lo <= hi {
             let partition_x = (lo + hi) / 2;
             let partition_y = (combined_len + 1) / 2 - partition_x;
 
 
-            let max_x = get_max(&small, partition_x);
-            let min_x = get_min(&small, partition_x);
-            
-            let max_y = get_max(&big, partition_y);
-            let min_y = get_min(&big, partition_y);
-            
+            let max_x = if partition_x == 0 { i32::MIN } else { small[partition_x - 1] };
+            let min_x = if partition_x == sl { i32::MAX } else { small[partition_x] };
+
+            let max_y = if partition_y == 0 { i32::MIN } else { big[partition_y - 1] };
+            let min_y = if partition_y == bl { i32::MAX } else { big[partition_y] };
+
             if max_x <= min_y && max_y <= min_x {
                 if combined_len % 2 == 0 {
                     return (max_x.max(max_y) + min_x.min(min_y)) as f64 / 2.0;
@@ -47,23 +48,6 @@ pub mod solution {
         // Should never reach this with sorted arrays
         unreachable!()
 
-    }
-
-
-    pub fn get_max(nums: &Vec<i32>, partition: usize) -> i32 {
-        if partition == 0 {
-            i32::MIN
-        } else {
-            nums[partition - 1]
-        }
-    }
-
-    pub fn get_min(nums: &Vec<i32>, partition: usize) -> i32 {
-         if partition == nums.len() {
-            i32::MAX
-        } else {
-            nums[partition]
-        }
     }
 
 }
